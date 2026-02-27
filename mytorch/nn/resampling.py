@@ -104,5 +104,8 @@ class Downsample2d():
         Return:
             dLdA (np.array): (batch_size, in_channels, input_height, input_width)
         """
-        dLdA = None  # TODO
+        new_height = (dLdZ.shape[2]-1) * self.downsampling_factor + 1
+        new_width = (dLdZ.shape[3]-1) * self.downsampling_factor + 1
+        dLdA = np.zeros((dLdZ.shape[0], dLdZ.shape[1], new_height, new_width)) 
+        dLdA[:,:,::self.downsampling_factor, ::self.downsampling_factor] = dLdZ
         return NotImplemented
